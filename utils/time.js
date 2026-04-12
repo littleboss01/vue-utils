@@ -3,7 +3,7 @@
  * - 几秒前、几分钟前、几小时前、几天前
  * - 超过7天显示精准时间（不含毫秒）
  */
-export function formatRelativeTime(dateStr: string | number | Date | null | undefined): string {
+export function formatRelativeTime(dateStr) {
   if (!dateStr) return '-'
   const date = new Date(dateStr)
   if (isNaN(date.getTime())) return '-'
