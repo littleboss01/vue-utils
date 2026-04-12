@@ -1,0 +1,1 @@
+- [x] components\PageTemplate.vue 增加多选 后显示 批量编辑和删除

@@ -7,6 +7,14 @@ export declare interface PageTemplateProps {
   fetchDataFn: (params: { page: number; page_size: number; keyword?: string; [key: string]: any }) => Promise<{ items: any[]; total: number }>
   searchPlaceholder?: string
   extraParams?: () => Record<string, any>
+  showBatchEdit?: boolean
+  showBatchDelete?: boolean
 }
 
-export declare const PageTemplate: import('vue').DefineComponent<PageTemplateProps>
+export declare const PageTemplate: import('vue').DefineComponent<
+  PageTemplateProps,
+  {
+    batchEdit: [keys: Array<string | number>]
+    batchDelete: [keys: Array<string | number>]
+  }
+>

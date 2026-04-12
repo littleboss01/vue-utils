@@ -13,6 +13,17 @@
         <n-button @click="fetchData">查询</n-button>
       </n-space>
 
+      <n-space v-if="checkedRowKeys.length > 0" style="margin-bottom: 12px;" align="center">
+        <n-tag type="info" :bordered="false">已选 {{ checkedRowKeys.length }} 项</n-tag>
+        <n-button v-if="showBatchEdit" type="primary" size="small" @click="handleBatchEdit">
+          批量编辑
+        </n-button>
+        <n-button v-if="showBatchDelete" type="error" size="small" @click="handleBatchDelete">
+          批量删除
+        </n-button>
+        <n-button size="small" quaternary @click="clearChecked">取消选择</n-button>
+      </n-space>
+
       <n-data-table
         :columns="columns"
         :data="tableData"
@@ -21,6 +32,8 @@
         :bordered="true"
         :row-key="rowKey"
         :striped="true"
+        :checked-row-keys="checkedRowKeys"
+        @update:checked-row-keys="handleCheck"
         @update:page="handlePageChange"
       />
     </n-card>
@@ -42,10 +55,37 @@ const props = withDefaults(defineProps<{
   fetchDataFn: (params: { page: number; page_size: number; keyword?: string; [key: string]: any }) => Promise<{ items: any[]; total: number }>
   searchPlaceholder?: string
   extraParams?: () => Record<string, any>
+  showBatchEdit?: boolean
+  showBatchDelete?: boolean
 }>(), {
   rowKey: (row: any) => row.id,
   searchPlaceholder: '搜索',
+  showBatchEdit: false,
+  showBatchDelete: false,
 })
+
+const emit = defineEmits<{
+  batchEdit: [keys: Array<string | number>]
+  batchDelete: [keys: Array<string | number>]
+}>()
+
+const checkedRowKeys = ref<Array<string | number>>([])
+
+function handleCheck(keys: Array<string | number>) {
+  checkedRowKeys.value = keys
+}
+
+function clearChecked() {
+  checkedRowKeys.value = []
+}
+
+function handleBatchEdit() {
+  emit('batchEdit', checkedRowKeys.value)
+}
+
+function handleBatchDelete() {
+  emit('batchDelete', checkedRowKeys.value)
+}
 
 const message = useMessage()
 const loading = ref(false)
@@ -72,6 +112,7 @@ async function fetchData() {
     const data = await props.fetchDataFn(params)
     tableData.value = data.items ?? []
     pagination.itemCount = data.total ?? 0
+    checkedRowKeys.value = []
   } catch (err: unknown) {
     message.error((err as Error).message || '获取数据失败')
   } finally {
@@ -91,5 +132,5 @@ function resetPage() {
 
 onMounted(fetchData)
 
-defineExpose({ fetchData, resetPage, keyword, tableData, pagination })
+defineExpose({ fetchData, resetPage, keyword, tableData, pagination, checkedRowKeys, clearChecked })
 </script>
