@@ -1,0 +1,42 @@
+{
+  "name": "shared-vue-utils",
+  "version": "1.0.0",
+  "description": "共享 Vue 组件和工具函数（Naive UI + Vue 3）",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./utils/time": {
+      "import": "./utils/time.js",
+      "types": "./utils/time.d.ts"
+    },
+    "./components/PageTemplate": {
+      "import": "./components/PageTemplate.js",
+      "types": "./components/PageTemplate.d.ts"
+    },
+    "./components/ImportDialog": {
+      "import": "./components/ImportDialog.js",
+      "types": "./components/ImportDialog.d.ts"
+    }
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0",
+    "naive-ui": "^2.38.0",
+    "@vicons/ionicons5": "^0.12.0"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "utils/",
+    "components/"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/shared-vue-utils.git"
+  },
+  "license": "MIT"
+}
