@@ -1,28 +1,28 @@
-# shared-vue-utils
+# vue-utils
 
 共享 Vue 3 + Naive UI 组件和工具函数库。
 
 ## 安装
 
 ```bash
-npm install git+https://github.com/YOUR_USERNAME/shared-vue-utils.git
+npm install git+https://github.com/littleboss01/vue-utils.git
 ```
 
 ## 使用
 
 ```ts
 // 工具函数
-import { formatRelativeTime } from 'shared-vue-utils'
+import { formatRelativeTime } from 'vue-utils'
 // 或
-import { formatRelativeTime } from 'shared-vue-utils/utils/time'
+import { formatRelativeTime } from 'vue-utils/utils/time'
 
 // 组件
-import { PageTemplate } from 'shared-vue-utils'
-import { ImportDialog } from 'shared-vue-utils'
+import { PageTemplate } from 'vue-utils'
+import { ImportDialog } from 'vue-utils'
 
 // 或按路径引入
-import PageTemplate from 'shared-vue-utils/components/PageTemplate'
-import ImportDialog from 'shared-vue-utils/components/ImportDialog'
+import PageTemplate from 'vue-utils/components/PageTemplate'
+import ImportDialog from 'vue-utils/components/ImportDialog'
 ```
 
 ## 包含内容
