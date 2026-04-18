@@ -9,6 +9,8 @@ export declare interface PageTemplateProps {
   extraParams?: () => Record<string, any>
   showBatchEdit?: boolean
   showBatchDelete?: boolean
+  hideIdColumn?: boolean
+  showIndexColumn?: boolean
 }
 
 export declare const PageTemplate: import('vue').DefineComponent<

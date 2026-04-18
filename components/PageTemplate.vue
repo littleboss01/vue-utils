@@ -25,7 +25,7 @@
       </n-space>
 
       <n-data-table
-        :columns="columns"
+        :columns="resolvedColumns"
         :data="tableData"
         :loading="loading"
         :pagination="pagination"
@@ -43,10 +43,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { SearchOutline } from '@vicons/ionicons5'
 import { useMessage } from 'naive-ui'
-import type { DataTableColumns } from 'naive-ui'
+import type { DataTableColumns, DataTableColumn } from 'naive-ui'
 
 const props = withDefaults(defineProps<{
   title: string
@@ -57,11 +57,33 @@ const props = withDefaults(defineProps<{
   extraParams?: () => Record<string, any>
   showBatchEdit?: boolean
   showBatchDelete?: boolean
+  hideIdColumn?: boolean
+  showIndexColumn?: boolean
 }>(), {
   rowKey: (row: any) => row.id,
   searchPlaceholder: '搜索',
   showBatchEdit: false,
   showBatchDelete: false,
+  hideIdColumn: false,
+  showIndexColumn: false,
+})
+
+const resolvedColumns = computed<DataTableColumns<any>>(() => {
+  let cols = props.columns
+  if (props.hideIdColumn) {
+    cols = cols.filter((col: DataTableColumn<any>) => !(col && 'key' in col && col.key === 'id'))
+  }
+  if (props.showIndexColumn) {
+    const indexCol: DataTableColumn<any> = {
+      title: '序号',
+      key: '__index',
+      width: 60,
+      align: 'center',
+      render: (_row: any, index: number) => (pagination.page - 1) * pagination.pageSize + index + 1,
+    }
+    cols = [indexCol, ...cols]
+  }
+  return cols
 })
 
 const emit = defineEmits<{

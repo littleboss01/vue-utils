@@ -11,8 +11,8 @@
       "types": "./index.d.ts"
     },
     "./utils/time": {
-      "import": "./utils/time.js",
-      "types": "./utils/time.d.ts"
+      "import": "./utils/time.ts",
+      "types": "./utils/time.ts"
     },
     "./components/PageTemplate": {
       "import": "./components/PageTemplate.vue",
