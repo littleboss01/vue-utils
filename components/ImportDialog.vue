@@ -61,7 +61,6 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 import { NModal, NTabs, NTab, NInput, NUpload, NUploadDragger, NButton, NIcon, NAlert, NTag, NText, useMessage } from 'naive-ui'
-import { CloudUploadOutline, DownloadOutline } from '@vicons/ionicons5'
 
 const props = withDefaults(defineProps<{
   title?: string

@@ -38,15 +38,11 @@
   "peerDependencies": {
     "vue": "^3.4.0",
     "naive-ui": "^2.38.0",
-    "@vicons/ionicons5": ">=0.12.0",
-    "element-plus": "^2.7.0",
-    "@element-plus/icons-vue": "^2.3.0"
+    "element-plus": "^2.7.0"
   },
   "peerDependenciesMeta": {
     "naive-ui": { "optional": true },
-    "@vicons/ionicons5": { "optional": true },
-    "element-plus": { "optional": true },
-    "@element-plus/icons-vue": { "optional": true }
+    "element-plus": { "optional": true }
   },
   "files": [
     "index.js",
