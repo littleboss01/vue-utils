@@ -1,7 +1,7 @@
 {
   "name": "shared-vue-utils",
   "version": "1.1.0",
-  "description": "共享 Vue 组件和工具函数（Naive UI + Vue 3）",
+  "description": "共享 Vue 组件和工具函数（Naive UI / Element Plus + Vue 3）",
   "type": "module",
   "main": "index.js",
   "types": "index.d.ts",
@@ -21,16 +21,38 @@
     "./components/ImportDialog": {
       "import": "./components/ImportDialog.vue",
       "types": "./components/ImportDialog.d.ts"
+    },
+    "./element-plus": {
+      "import": "./element-plus.js",
+      "types": "./element-plus.d.ts"
+    },
+    "./element-plus/PageTemplate": {
+      "import": "./components/element-plus/PageTemplate.vue",
+      "types": "./components/element-plus/PageTemplate.d.ts"
+    },
+    "./element-plus/ImportDialog": {
+      "import": "./components/element-plus/ImportDialog.vue",
+      "types": "./components/element-plus/ImportDialog.d.ts"
     }
   },
   "peerDependencies": {
     "vue": "^3.4.0",
     "naive-ui": "^2.38.0",
-    "@vicons/ionicons5": ">=0.12.0"
+    "@vicons/ionicons5": ">=0.12.0",
+    "element-plus": "^2.7.0",
+    "@element-plus/icons-vue": "^2.3.0"
+  },
+  "peerDependenciesMeta": {
+    "naive-ui": { "optional": true },
+    "@vicons/ionicons5": { "optional": true },
+    "element-plus": { "optional": true },
+    "@element-plus/icons-vue": { "optional": true }
   },
   "files": [
     "index.js",
     "index.d.ts",
+    "element-plus.js",
+    "element-plus.d.ts",
     "utils/",
     "components/"
   ],
