@@ -4,12 +4,25 @@
       <template #header>
         <div style="display: flex; justify-content: space-between; align-items: center;">
           <span style="font-size: 16px; font-weight: 600;">{{ title }}</span>
-          <slot name="header-extra" />
+          <div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+            <div v-if="checkedRows.length > 0" style="display: flex; align-items: center; gap: 8px;">
+              <el-tag type="info" effect="plain">宸查€?{{ checkedRows.length }} 椤?/el-tag>
+              <el-button v-if="showBatchEdit" type="primary" size="small" @click="handleBatchEdit">
+                鎵归噺缂栬緫
+              </el-button>
+              <el-button v-if="showBatchDelete" type="danger" size="small" @click="handleBatchDelete">
+                鎵归噺鍒犻櫎
+              </el-button>
+              <el-button size="small" link @click="clearChecked">鍙栨秷閫夋嫨</el-button>
+            </div>
+            <slot name="header-extra" />
+          </div>
         </div>
       </template>
 
       <div style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
         <slot name="filters" />
+        <!--
         <el-input
           v-model="keyword"
           :placeholder="searchPlaceholder"
@@ -19,19 +32,11 @@
         >
           <template #prefix><el-icon><Search /></el-icon></template>
         </el-input>
-        <el-button @click="fetchData">查询</el-button>
+        <el-button @click="fetchData">鏌ヨ</el-button>
+        -->
       </div>
 
-      <div v-if="checkedRows.length > 0" style="margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-        <el-tag type="info" effect="plain">已选 {{ checkedRows.length }} 项</el-tag>
-        <el-button v-if="showBatchEdit" type="primary" size="small" @click="handleBatchEdit">
-          批量编辑
-        </el-button>
-        <el-button v-if="showBatchDelete" type="danger" size="small" @click="handleBatchDelete">
-          批量删除
-        </el-button>
-        <el-button size="small" link @click="clearChecked">取消选择</el-button>
-      </div>
+      <!-- 鍘熶唬鐮佸凡杩佺Щ鍒?婧愪唬鐮?md锛氭壒閲忔搷浣滀綅浜庣瓫閫夊尯鍩熶笅鏂?-->
 
       <el-table
         v-loading="loading"
@@ -44,7 +49,7 @@
         <el-table-column type="selection" width="45" />
         <el-table-column
           v-if="showIndexColumn"
-          label="序号"
+          label="搴忓彿"
           width="60"
           align="center"
         >
@@ -96,7 +101,7 @@ const props = withDefaults(defineProps<{
   showIndexColumn?: boolean
 }>(), {
   rowKey: 'id',
-  searchPlaceholder: '搜索',
+  searchPlaceholder: '鎼滅储',
   showBatchEdit: false,
   showBatchDelete: false,
   hideIdColumn: false,
@@ -155,7 +160,7 @@ async function fetchData() {
     total.value = data.total ?? 0
     checkedRows.value = []
   } catch (err: unknown) {
-    ElMessage.error((err as Error).message || '获取数据失败')
+    ElMessage.error((err as Error).message || '鑾峰彇鏁版嵁澶辫触')
   } finally {
     loading.value = false
   }
