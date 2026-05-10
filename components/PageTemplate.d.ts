@@ -6,6 +6,7 @@ export declare interface PageTemplateProps {
   rowKey?: (row: any) => string | number
   fetchDataFn: (params: { page: number; page_size: number; keyword?: string; [key: string]: any }) => Promise<{ items: any[]; total: number }>
   searchPlaceholder?: string
+  scrollX?: number | string
   extraParams?: () => Record<string, any>
   showBatchEdit?: boolean
   showBatchDelete?: boolean

@@ -24,18 +24,21 @@
         <n-button size="small" quaternary @click="clearChecked">取消选择</n-button>
       </n-space>
 
-      <n-data-table
-        :columns="resolvedColumns"
-        :data="tableData"
-        :loading="loading"
-        :pagination="pagination"
-        :bordered="true"
-        :row-key="rowKey"
-        :striped="true"
-        :checked-row-keys="checkedRowKeys"
-        @update:checked-row-keys="handleCheck"
-        @update:page="handlePageChange"
-      />
+      <div style="width: 100%; overflow-x: auto;">
+        <n-data-table
+          :columns="resolvedColumns"
+          :data="tableData"
+          :loading="loading"
+          :pagination="pagination"
+          :bordered="true"
+          :row-key="rowKey"
+          :striped="true"
+          :checked-row-keys="checkedRowKeys"
+          :scroll-x="scrollX"
+          @update:checked-row-keys="handleCheck"
+          @update:page="handlePageChange"
+        />
+      </div>
     </n-card>
 
     <slot name="modals" />
@@ -54,6 +57,7 @@ const props = withDefaults(defineProps<{
   rowKey?: (row: any) => string | number
   fetchDataFn: (params: { page: number; page_size: number; keyword?: string; [key: string]: any }) => Promise<{ items: any[]; total: number }>
   searchPlaceholder?: string
+  scrollX?: number | string
   extraParams?: () => Record<string, any>
   showBatchEdit?: boolean
   showBatchDelete?: boolean
@@ -67,6 +71,8 @@ const props = withDefaults(defineProps<{
   hideIdColumn: false,
   showIndexColumn: false,
 })
+
+const scrollX = props.scrollX
 
 const resolvedColumns = computed<DataTableColumns<any>>(() => {
   let cols = props.columns
