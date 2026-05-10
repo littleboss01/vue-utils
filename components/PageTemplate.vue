@@ -31,21 +31,19 @@
         <n-button size="small" quaternary @click="clearChecked">取消选择</n-button>
       </n-space>
 
-      <div style="width: 100%; overflow-x: auto;">
-        <n-data-table
-          :columns="resolvedColumns"
-          :data="tableData"
-          :loading="loading"
-          :pagination="pagination"
-          :bordered="true"
-          :row-key="rowKey"
-          :striped="true"
-          :checked-row-keys="checkedRowKeys"
-          :scroll-x="scrollX"
-          @update:checked-row-keys="handleCheck"
-          @update:page="handlePageChange"
-        />
-      </div>
+      <n-data-table
+        :columns="resolvedColumns"
+        :data="tableData"
+        :loading="loading"
+        :pagination="pagination"
+        :bordered="true"
+        :row-key="rowKey"
+        :striped="true"
+        :checked-row-keys="checkedRowKeys"
+        :scroll-x="scrollX"
+        @update:checked-row-keys="handleCheck"
+        @update:page="handlePageChange"
+      />
     </n-card>
 
     <slot name="modals" />
@@ -86,6 +84,21 @@ const resolvedColumns = computed<DataTableColumns<any>>(() => {
   if (props.hideIdColumn) {
     cols = cols.filter((col: DataTableColumn<any>) => !(col && 'key' in col && col.key === 'id'))
   }
+
+  // 窄屏横向滚动时，让“操作”列（若能识别）固定在右侧，避免被滚走
+  if (scrollX != null) {
+    cols = cols.map((col: DataTableColumn<any>) => {
+      if (!col || typeof col !== 'object') return col
+      if ('fixed' in col && col.fixed) return col
+      if (!('key' in col)) return col
+      const key = String((col as any).key ?? '')
+      const title = String((col as any).title ?? '')
+      const isActionCol = key === 'actions' || key === 'action' || title === '操作'
+      if (!isActionCol) return col
+      return { ...col, fixed: 'right' as const }
+    }) as unknown as DataTableColumns<any>
+  }
+
   if (props.showIndexColumn) {
     const indexCol: DataTableColumn<any> = {
       title: '序号',

@@ -3,3 +3,4 @@
 - [x] components\element-plus\PageTemplate.vue move batch actions to card header top-right
 
 - [x] components\element-plus\PageTemplate.vue comment out search box block
+shared-vue-utils
