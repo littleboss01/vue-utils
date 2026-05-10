@@ -1,19 +1,26 @@
 <template>
   <div>
-    <n-card :title="title">
-      <template v-if="$slots['header-extra']" #header-extra>
-        <slot name="header-extra" />
+    <n-card>
+      <template #header>
+        <div class="page-template-card-head">
+          <div class="page-template-card-head__title">
+            {{ title }}
+          </div>
+          <div v-if="$slots['header-extra']" class="page-template-card-head__extra">
+            <slot name="header-extra" />
+          </div>
+        </div>
       </template>
 
-      <n-space style="margin-bottom: 16px;">
+      <n-space wrap style="margin-bottom: 16px;">
         <slot name="filters" />
-        <n-input v-model:value="keyword" :placeholder="searchPlaceholder" clearable style="width: 240px;" @keyup.enter="fetchData">
+        <n-input v-model:value="keyword" :placeholder="searchPlaceholder" clearable class="page-template-keyword" @keyup.enter="fetchData">
           <template #prefix><n-icon><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"/><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="32" d="M338.29 338.29L448 448"/></svg></n-icon></template>
         </n-input>
         <n-button @click="fetchData">查询</n-button>
       </n-space>
 
-      <n-space v-if="checkedRowKeys.length > 0" style="margin-bottom: 12px;" align="center">
+      <n-space v-if="checkedRowKeys.length > 0" wrap style="margin-bottom: 12px;" align="center">
         <n-tag type="info" :bordered="false">已选 {{ checkedRowKeys.length }} 项</n-tag>
         <n-button v-if="showBatchEdit" type="primary" size="small" @click="handleBatchEdit">
           批量编辑
@@ -162,3 +169,40 @@ onMounted(fetchData)
 
 defineExpose({ fetchData, resetPage, keyword, tableData, pagination, checkedRowKeys, clearChecked })
 </script>
+
+<style scoped>
+.page-template-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 12px;
+  row-gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.page-template-card-head__title {
+  font-size: var(--n-title-font-size, 18px);
+  font-weight: var(--n-title-font-weight, 500);
+  color: var(--n-title-text-color);
+  flex: 1 1 120px;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.page-template-card-head__extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-left: auto;
+  flex: 0 0 auto;
+  max-width: 100%;
+}
+
+.page-template-keyword {
+  width: 240px;
+  max-width: 100%;
+}
+</style>
