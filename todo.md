@@ -3,4 +3,5 @@
 - [x] components\element-plus\PageTemplate.vue move batch actions to card header top-right
 
 - [x] components\element-plus\PageTemplate.vue comment out search box block
+- [x] components\PageTemplate.vue fix page size switch by handling `update:page-size` and refetching data
 shared-vue-utils

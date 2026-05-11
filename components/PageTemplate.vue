@@ -43,6 +43,7 @@
         :scroll-x="scrollX"
         @update:checked-row-keys="handleCheck"
         @update:page="handlePageChange"
+        @update:page-size="handlePageSizeChange"
       />
     </n-card>
 
@@ -170,6 +171,12 @@ async function fetchData() {
 
 function handlePageChange(page: number) {
   pagination.page = page
+  fetchData()
+}
+
+function handlePageSizeChange(pageSize: number) {
+  pagination.pageSize = pageSize
+  pagination.page = 1
   fetchData()
 }
 
