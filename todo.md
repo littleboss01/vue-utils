@@ -4,4 +4,5 @@
 
 - [x] components\element-plus\PageTemplate.vue comment out search box block
 - [x] components\PageTemplate.vue fix page size switch by handling `update:page-size` and refetching data
+- [x] components\PageTemplate.vue enable remote pagination so prev/next buttons follow backend total count instead of current page data length
 shared-vue-utils

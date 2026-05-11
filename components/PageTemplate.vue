@@ -36,6 +36,7 @@
         :data="tableData"
         :loading="loading"
         :pagination="pagination"
+        :remote="true"
         :bordered="true"
         :row-key="rowKey"
         :striped="true"
