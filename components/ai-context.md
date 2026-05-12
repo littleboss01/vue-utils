@@ -1,3 +1,7 @@
+# ImportDialog.vue（Naive UI）
+
+- 粘贴/文件内容按换行拆条：`\r\n` / `\r` 先规范为 `\n`，再 `split('\n')`，每行 `trim` 后非空即一条；已移除自定义 `separator` 与行内分隔逻辑。
+
 # PageTemplate.vue（Naive UI）
 
 - 卡片头部已改为 `#header` 自定义布局：标题与 `header-extra` 使用可换行 flex，窄屏时操作区换行展示，避免被默认单行头部挤没。

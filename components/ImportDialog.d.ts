@@ -1,6 +1,5 @@
 export declare interface ImportDialogProps {
   title?: string
-  separator?: string
   formatHint?: string
   pastePlaceholder?: string
   templateContent?: string

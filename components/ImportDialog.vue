@@ -34,7 +34,7 @@
     <n-alert type="info" style="margin-top: 12px;" :bordered="false">
       <template #header>格式说明</template>
       <div style="font-size: 13px; line-height: 1.6;">
-        <div>每行一条数据，或用 <n-tag size="tiny" type="info">{{ separator }}</n-tag> 分隔</div>
+        <div>每行一条数据（按换行分隔）</div>
         <div style="margin-top: 4px;">{{ formatHint }}</div>
       </div>
     </n-alert>
@@ -60,20 +60,18 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { NModal, NTabs, NTab, NInput, NUpload, NUploadDragger, NButton, NIcon, NAlert, NTag, NText, useMessage } from 'naive-ui'
+import { NModal, NTabs, NTab, NInput, NUpload, NUploadDragger, NButton, NIcon, NAlert, NText, useMessage } from 'naive-ui'
 
 const props = withDefaults(defineProps<{
   title?: string
-  separator?: string
   formatHint?: string
   pastePlaceholder?: string
   templateContent?: string
   templateFileName?: string
 }>(), {
   title: '导入数据',
-  separator: '----',
   formatHint: '例如：example.com',
-  pastePlaceholder: '每行一条，或用 ---- 分隔',
+  pastePlaceholder: '每行一条数据，换行分隔',
   templateContent: 'example.com\nexample2.com',
   templateFileName: 'template.txt',
 })
@@ -101,16 +99,8 @@ const rawContent = computed(() => inputMode.value === 'paste' ? textContent.valu
 
 const parsedItems = computed(() => {
   if (!rawContent.value.trim()) return []
-  const lines = rawContent.value.split(/[\r\n]+/).map(s => s.trim()).filter(Boolean)
-  const items: string[] = []
-  for (const line of lines) {
-    if (line.includes(props.separator)) {
-      items.push(...line.split(props.separator).map(s => s.trim()).filter(Boolean))
-    } else {
-      items.push(line)
-    }
-  }
-  return items
+  const normalized = rawContent.value.replaceAll('\r\n', '\n').replaceAll('\r', '\n')
+  return normalized.split('\n').map((s) => s.trim()).filter(Boolean)
 })
 
 function downloadTemplate() {
